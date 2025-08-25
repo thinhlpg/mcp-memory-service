@@ -137,9 +137,11 @@ async def mcp_server_lifespan(server: FastMCP) -> AsyncIterator[MCPServerContext
             await storage.close()
 
 # Create FastMCP server instance
+port = int(os.getenv("MCP_SERVER_PORT", "8000"))
+host = os.getenv("MCP_SERVER_HOST", "0.0.0.0")
 mcp = FastMCP(
     name="MCP Memory Service", 
-    host="0.0.0.0",  # Listen on all interfaces for remote access
+    host=host,  # Listen on all interfaces for remote access
     port=port,       # Default port
     lifespan=mcp_server_lifespan,
     stateless_http=True  # Enable stateless HTTP for Claude Code compatibility
@@ -397,9 +399,9 @@ async def check_database_health(ctx: Context) -> Dict[str, Any]:
 
 def main():
     """Main entry point for the FastAPI MCP server."""
-    # Configure for Claude Code integration
-    port = int(os.getenv("MCP_SERVER_PORT", "8000"))
-    host = os.getenv("MCP_SERVER_HOST", "0.0.0.0")
+    # # Configure for Claude Code integration
+    # port = int(os.getenv("MCP_SERVER_PORT", "8000"))
+    # host = os.getenv("MCP_SERVER_HOST", "0.0.0.0")
     
     logger.info(f"Starting MCP Memory Service FastAPI server on {host}:{port}")
     logger.info(f"Storage backend: {STORAGE_BACKEND}")
