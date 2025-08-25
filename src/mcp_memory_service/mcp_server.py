@@ -140,7 +140,7 @@ async def mcp_server_lifespan(server: FastMCP) -> AsyncIterator[MCPServerContext
 mcp = FastMCP(
     name="MCP Memory Service", 
     host="0.0.0.0",  # Listen on all interfaces for remote access
-    port=8000,       # Default port
+    port=port,       # Default port
     lifespan=mcp_server_lifespan,
     stateless_http=True  # Enable stateless HTTP for Claude Code compatibility
 )
